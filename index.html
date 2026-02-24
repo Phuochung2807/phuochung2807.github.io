@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LE HUNG - Mobile Game Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f8b8d;
+            --primary-dark: #0a6c6e;
+            --primary-light: #e8f6f6;
+            --accent: #ec5e2a;
+            --accent-light: #fff0eb;
+            --sidebar-bg: linear-gradient(170deg, #0f8b8d 0%, #086264 100%);
+            --sidebar-text: #fff;
+            --sidebar-muted: rgba(255,255,255,0.65);
+            --main-bg: #fff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a5a;
+            --text-muted: #8e8e9e;
+            --bar-bg: rgba(255,255,255,0.2);
+            --bar-fill: #fff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #e0e7ee 0%, #c9d6df 100%);
+            line-height: 1.55;
+            font-size: 13px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .job-title, .edu-title {
+            font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 24px auto;
+            background: var(--main-bg);
+            display: flex;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* ───── Sidebar ───── */
+        .sidebar {
+            width: 33%;
+            padding: 0;
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            position: relative;
+        }
+
+        .sidebar-inner {
+            padding: 36px 24px 30px 26px;
+        }
+
+        /* Avatar circle with initials */
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: 3px solid rgba(255,255,255,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .sidebar h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 10.5px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 12px;
+            padding-bottom: 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .detail-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.6;
+        }
+
+        .detail-text {
+            font-size: 12px;
+            color: var(--sidebar-text);
+            line-height: 1.4;
+        }
+
+        .detail-text a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .detail-text a:hover {
+            border-bottom-color: #fff;
+        }
+
+        /* Skill bars */
+        .skill-item {
+            margin-bottom: 10px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .skill-name {
+            font-size: 11px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 400;
+        }
+
+        .skill-level {
+            font-size: 9.5px;
+            color: rgba(255,255,255,0.45);
+            font-weight: 500;
+        }
+
+        .skill-bar {
+            height: 4px;
+            background: var(--bar-bg);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: var(--bar-fill);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* ───── Main Content ───── */
+        .main {
+            width: 67%;
+            padding: 36px 32px 30px 32px;
+        }
+
+        .header {
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--primary);
+            letter-spacing: 1.5px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-light) 0%, transparent 100%);
+        }
+
+        .profile-text {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Employment */
+        .job {
+            margin-bottom: 16px;
+            position: relative;
+            padding-left: 14px;
+        }
+
+        .job::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .job::after {
+            content: '';
+            position: absolute;
+            left: 2px;
+            top: 14px;
+            width: 1px;
+            bottom: 0;
+            background: #e8e8e8;
+        }
+
+        .job:last-child::after {
+            display: none;
+        }
+
+        .job-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .job-date {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .job-location {
+            color: #bbb;
+            margin-left: 6px;
+        }
+
+        .job-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 4px;
+        }
+
+        .job-desc ul {
+            padding-left: 14px;
+            margin-top: 3px;
+        }
+
+        .job-desc ul li {
+            margin-bottom: 3px;
+        }
+
+        .job-desc ul li::marker {
+            color: var(--accent);
+        }
+
+        .job-desc strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .project-name {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Education */
+        .edu-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .edu-date {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Footer note */
+        .cv-footnote {
+            text-align: right;
+            font-size: 9px;
+            color: #ccc;
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        /* ───── Print ───── */
+        @media print {
+            body { background: #fff; }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+                width: 100%;
+                min-height: auto;
+                border-radius: 0;
+            }
+
+            .sidebar, .skill-bar-fill, .skill-bar, .job::before {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            @page { size: A4; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-inner">
+                <div class="avatar">LH</div>
+
+                <div class="sidebar-section">
+                    <h2>Contact</h2>
+                    <div class="detail-row">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span class="detail-text">Ho Chi Minh</span>
+                    </div>
+                    <div class="detail-row">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span class="detail-text">0969545987</span>
+                    </div>
+                    <div class="detail-row">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span class="detail-text">phuochung.2807<br>@gmail.com</span>
+                    </div>
+                    <div class="detail-row">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        <span class="detail-text"><a href="https://www.linkedin.com/in/h%C6%B0ng-l%C3%AA-53a4a762/" target="_blank">LinkedIn</a></span>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h2>Skills</h2>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Unity & C#</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:100%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Cocos 2dx & C++</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Android & Java</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">iOS & Objective C</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">VContainer (DI) & UniTask</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">SOLID / Clean Architecture</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">CQRS Pattern</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Game Arch: ECS, TDD, MVVM</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:100%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">CI/CD & Jenkins</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Agile: Trello, Jira, Asana</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:100%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">AI-Assisted Dev (Claude Code)</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="header">
+                <h1 class="name">LE HUNG</h1>
+                <div class="subtitle">Mobile Game Developer</div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Profile</h2>
+                <p class="profile-text">
+                    Game developer with 10+ years experience coding technically mobile games using Unity editor and C#. Proficient in C# infrastructure, language standards, clean architecture with dependency injection, and AI-assisted development workflows. Experienced in game architecture design, resource optimization, and managing large-scale Unity projects.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Employment History</h2>
+
+                <div class="job">
+                    <div class="job-title">Game Developer, Athena Studio</div>
+                    <div class="job-date">Nov 2019 &mdash; Present</div>
+                    <div class="job-desc">
+                        <p>At Athena Studio, I focus on developing casual game series and maintaining projects that have scaled up with millions of users.</p>
+                    </div>
+                    <div class="job-desc">
+                        <p><span class="project-name">- BlossomSort:</span> a flower-sorting puzzle game built from scratch as the sole developer, featuring clean architecture with CQRS pattern, VContainer DI, and UniTask async flows.</p>
+                        <ul>
+                            <li>10 obstacle types, 4 boosters, 3 power-ups, daily tasks system, and live events</li>
+                            <li>Remote config driven gameplay tuning, IAP & ads monetization</li>
+                            <li>Custom level editor with AI solver tools for automated level validation</li>
+                            <li><strong>~90% of production code shipped via AI-assisted development with Claude Code</strong> &mdash; covering the full development lifecycle: reading GDD & translating to architecture plans, implementing game logic, writing unit tests, systematic debugging (analytics log tracing, root cause analysis, fix verification), and codebase refactoring</li>
+                            <li>Built custom Claude Code skills & sub-agent workflows for feature development, parallel task execution, and code review &mdash; enabling a solo developer to deliver at the pace of a small team</li>
+                        </ul>
+                    </div>
+                    <div class="job-desc">
+                        <p><span class="project-name">- Woodland Bubble Pop:</span> the largest project I have participated in, taking over 2 years to develop, includes 1000 levels, 3 game play models, nearly 30 types of elements, and various events in the game.</p>
+                    </div>
+                    <div class="job-desc">
+                        <p><span class="project-name">- Coco Slide:</span> similar to Haru Cats, featuring endless game play with nearly 10 different types of blocks.</p>
+                    </div>
+                    <div class="job-desc">
+                        <p>- Above are the projects I worked on as the sole developer. Additionally, I have also implemented new features for long-developed projects such as Block Puzzle 100, Cake Sort, ... all of which have over 1M installs.</p>
+                    </div>
+                </div>
+
+                <div class="job">
+                    <div class="job-title">Game Developer, YOMI Studio</div>
+                    <div class="job-date">Apr 2017 &mdash; Aug 2019</div>
+                    <div class="job-desc">
+                        <p>I am responsible for building and designing game architecture, break down and code review for team members. Update and report project progress to PM.</p>
+                    </div>
+                    <div class="job-desc">
+                        <p>I have completed over 20 puzzle games of various genres, notably Haru Cats, Woody Puzzle, Block Puzzle 100, ...</p>
+                    </div>
+                </div>
+
+                <div class="job">
+                    <div class="job-title">Game Developer, DIVMOB</div>
+                    <div class="job-date">May 2015 &mdash; Feb 2017 <span class="job-location">&#9702; Ho Chi Minh</span></div>
+                    <div class="job-desc">
+                        <p>Divmob is the first studio in my career, and I am very fortunate to work here and start with a very large game project, which can be said to be the largest so far after more than 9 years of working.</p>
+                    </div>
+                    <div class="job-desc">
+                        <p>I, along with two other experienced developers, have been developing Heroes Infinity: Super Heroes for nearly two years. I have learned a lot of knowledge, skills, and experience. The time here has helped me shape my coding style as well as my problem-solving mindset and the organization of large projects in the future.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="edu-title">VNUHCM - University of Science</div>
+                <div class="edu-date">Jan 2011 &mdash; Jan 2015</div>
+            </div>
+
+            <div class="cv-footnote">This CV was also generated by Claude Code.</div>
+        </main>
+    </div>
+</body>
+</html>
