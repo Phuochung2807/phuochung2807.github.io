@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Hung - Game Development Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0f1117;
+    color: #e0e0e0;
+    line-height: 1.5;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1a1d27 0%, #2d3436 50%, #1a2332 100%);
+    padding: 50px 60px;
+    border-bottom: 3px solid #2a9d8f;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(42,157,143,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+  .header h1 { font-size: 42px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+  .header h1 span { color: #2a9d8f; }
+  .header .subtitle { font-size: 16px; color: #b2bec3; margin-top: 8px; font-weight: 300; }
+  .header .contact {
+    margin-top: 16px;
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    color: #636e72;
+  }
+  .header .contact a { color: #2a9d8f; text-decoration: none; }
+
+  .summary {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .stat-card {
+    background: linear-gradient(135deg, #1e2130 0%, #252836 100%);
+    border: 1px solid #2a2d3a;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+  .stat-card:hover { border-color: #2a9d8f; }
+  .stat-card .number { font-size: 36px; font-weight: 800; color: #2a9d8f; }
+  .stat-card .label { font-size: 12px; color: #636e72; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  .projects { max-width: 1200px; margin: 20px auto; padding: 0 60px; }
+  .section-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #636e72;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2a2d3a;
+  }
+
+  .project-card {
+    background: linear-gradient(135deg, #1e2130 0%, #252836 100%);
+    border: 1px solid #2a2d3a;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .project-card:hover { border-color: #2a9d8f; transform: translateY(-2px); }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    padding: 24px 28px;
+    gap: 16px;
+    border-bottom: 1px solid #2a2d3a;
+  }
+  .project-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .project-title-area { flex: 1; }
+  .project-title-area h2 { font-size: 20px; font-weight: 700; color: #fff; }
+  .project-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 4px;
+    font-size: 12px;
+  }
+  .project-meta .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .badge-role { background: rgba(42,157,143,0.15); color: #2a9d8f; }
+  .badge-duration { background: rgba(225,112,85,0.15); color: #e17055; }
+  .badge-company { background: rgba(99,110,114,0.15); color: #b2bec3; }
+  .badge-platform { background: rgba(108,92,231,0.15); color: #a29bfe; }
+
+  .project-screenshots {
+    display: flex;
+    gap: 8px;
+    padding: 20px 28px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2a9d8f #1e2130;
+  }
+  .project-screenshots::-webkit-scrollbar { height: 4px; }
+  .project-screenshots::-webkit-scrollbar-track { background: #1e2130; }
+  .project-screenshots::-webkit-scrollbar-thumb { background: #2a9d8f; border-radius: 2px; }
+
+  .project-screenshots img {
+    height: 260px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+  .project-screenshots img:hover { transform: scale(1.03); }
+  .project-screenshots img.landscape {
+    height: 200px;
+    width: auto;
+  }
+
+  .project-info {
+    padding: 16px 28px 24px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+  }
+  .project-description {
+    flex: 1;
+    font-size: 13.5px;
+    color: #b2bec3;
+    line-height: 1.7;
+  }
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .tech-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(42,157,143,0.1);
+    color: #2a9d8f;
+    border: 1px solid rgba(42,157,143,0.2);
+    white-space: nowrap;
+  }
+
+  .store-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #636e72;
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid #2a2d3a;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .store-link:hover { border-color: #2a9d8f; color: #2a9d8f; }
+
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #636e72;
+    font-size: 12px;
+    border-top: 1px solid #2a2d3a;
+    margin-top: 40px;
+  }
+
+  @media print {
+    body { background: #fff; color: #333; }
+    .header { background: #2d3436 !important; }
+    .project-card { break-inside: avoid; border: 1px solid #ddd; background: #fff !important; }
+    .project-screenshots img { height: 180px; }
+    .stat-card { background: #f8f9fa !important; border: 1px solid #ddd; }
+    .stat-card .number { color: #2a9d8f; }
+    .project-description { color: #555; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-content">
+    <h1>LE <span>HUNG</span></h1>
+    <div class="subtitle">Game Development Portfolio — 10+ Years of Mobile Game Engineering</div>
+    <div class="contact">
+      <span>Ho Chi Minh City, Vietnam</span>
+      <a href="mailto:phuochung.2807@gmail.com">phuochung.2807@gmail.com</a>
+      <span>0969545987</span>
+      <a href="https://www.linkedin.com/in/h%C6%B0ng-l%C3%AA-53a4a762/">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<div class="summary">
+  <div class="stat-card">
+    <div class="number">10+</div>
+    <div class="label">Years Experience</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">7+</div>
+    <div class="label">Published Games</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">5M+</div>
+    <div class="label">Total Downloads</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">3</div>
+    <div class="label">Studios</div>
+  </div>
+</div>
+
+<div class="projects">
+  <div class="section-title">Projects</div>
+
+  <!-- 1. Magic Bloom Sort -->
+  <div class="project-card">
+    <div class="project-header">
+      <img class="project-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/08/8d/50/088d506e-b378-4b49-d033-7d5d7fb722de/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/400x400ia-75.jpg" alt="Magic Bloom Sort icon">
+      <div class="project-title-area">
+        <h2>Magic Bloom Sort</h2>
+        <div class="project-meta">
+          <span class="badge badge-role">Lead Dev (Solo)</span>
+          <span class="badge badge-duration">6 months</span>
+          <span class="badge badge-company">Athena Studio</span>
+          <span class="badge badge-platform">iOS / Android</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-screenshots">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/45/11/c7/4511c7d5-4c70-c954-3a3e-2dae08d123e8/001_BLS_IOS_Initial_Screenshots_EN_1242x2688_1.png/460x996bb-60.jpg" alt="Magic Bloom Sort screenshot 1">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ae/d8/85/aed88528-92fa-a0bd-7364-00b80628b4a9/001_BLS_IOS_Initial_Screenshots_EN_1242x2688_2.png/460x996bb-60.jpg" alt="Magic Bloom Sort screenshot 2">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/20/31/1a/20311af5-c961-71bc-4f98-e1abbf46b1ce/001_BLS_IOS_Initial_Screenshots_EN_1242x2688_3.png/460x996bb-60.jpg" alt="Magic Bloom Sort screenshot 3">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/63/68/68/6368680a-abb6-2fed-6c24-b6c5fdacec63/001_BLS_IOS_Initial_Screenshots_EN_1242x2688_4.png/460x996bb-60.jpg" alt="Magic Bloom Sort screenshot 4">
+    </div>
+    <div class="project-info">
+      <div class="project-description">
+        Flower-sorting puzzle game built from scratch as sole developer. Clean architecture with CQRS pattern, VContainer DI, UniTask async flows. Features 10 obstacle types, 4 boosters, 3 power-ups, daily tasks, live events, remote config-driven gameplay, and custom level editor with AI solver.
+        <div class="tech-tags">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">VContainer DI</span>
+          <span class="tech-tag">UniTask</span>
+          <span class="tech-tag">CQRS</span>
+          <span class="tech-tag">Clean Arch</span>
+          <span class="tech-tag">Remote Config</span>
+          <span class="tech-tag">IAP & Ads</span>
+          <span class="tech-tag">Agentic Coding</span>
+        </div>
+        <a class="store-link" href="https://apps.apple.com/app/magic-bloom-sort/id6749238988" target="_blank">View on App Store &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Woodland Bubble Pop -->
+  <div class="project-card">
+    <div class="project-header">
+      <img class="project-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2f/25/65/2f2565ff-fa48-4323-2b01-161b9b3d9769/AppIcon-1x_U007emarketing-0-7-0-85-220-0.png/400x400ia-75.jpg" alt="Woodland Bubble Pop icon">
+      <div class="project-title-area">
+        <h2>Woodland Bubble Pop</h2>
+        <div class="project-meta">
+          <span class="badge badge-role">Lead Developer</span>
+          <span class="badge badge-duration">2 years</span>
+          <span class="badge badge-company">Athena Studio</span>
+          <span class="badge badge-platform">iOS / Android</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-screenshots">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/6d/8b/e8/6d8be868-93d2-058e-7833-6c6abc343dfe/4d66aaf4-9e87-4ddf-878d-ceb8f49ae6b3_1.png/460x998bb-60.jpg" alt="Woodland Bubble Pop screenshot 1">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/31/4e/1a/314e1af4-24a1-bb7b-9e4e-71aaf787ed33/bfef8da4-cbc4-451a-8709-94dc7871390e_2.png/460x998bb-60.jpg" alt="Woodland Bubble Pop screenshot 2">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/db/3d/0b/db3d0b39-a3e3-59cd-3ee0-76125c3720fa/fa81d864-3082-4372-a434-1d9af7df9356_3.png/460x998bb-60.jpg" alt="Woodland Bubble Pop screenshot 3">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/b4/80/84/b4808404-f744-f16c-c95a-3ac4fbe795c0/caa21613-7119-42d3-9e0f-7d374f16f0c5_4.png/460x998bb-60.jpg" alt="Woodland Bubble Pop screenshot 4">
+    </div>
+    <div class="project-info">
+      <div class="project-description">
+        Largest project in my career — bubble shooter with 1,000+ hand-crafted levels, 3 gameplay modes, ~30 interactive element types. Rich live-ops with seasonal events, tournaments. Extensive performance optimization for 60fps on low-end devices.
+        <div class="tech-tags">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">Asset Bundles</span>
+          <span class="tech-tag">Addressables</span>
+          <span class="tech-tag">Particle Systems</span>
+          <span class="tech-tag">Live Events</span>
+          <span class="tech-tag">Ads Mediation</span>
+        </div>
+        <a class="store-link" href="https://apps.apple.com/app/woodland-bubble-pop/id1583701873" target="_blank">View on App Store &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Woody Battle 2 -->
+  <div class="project-card">
+    <div class="project-header">
+      <img class="project-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/cb/3f/e3/cb3fe369-9040-b509-2573-8e90715df51b/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/400x400ia-75.jpg" alt="Woody Battle 2 icon">
+      <div class="project-title-area">
+        <h2>Woody Battle 2: Multiplayer PVP</h2>
+        <div class="project-meta">
+          <span class="badge badge-role">Senior Developer</span>
+          <span class="badge badge-duration">1 year</span>
+          <span class="badge badge-company">YOMI Studio</span>
+          <span class="badge badge-platform">iOS / Android</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-screenshots">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple125/v4/e7/5f/8c/e75f8c42-b3ed-596f-1d95-49d97ff2f9f9/17d95169-2d09-4bdd-b408-69893032d4fe_woodybattle2_iphoneX_1.png/460x996bb-60.jpg" alt="Woody Battle 2 screenshot 1">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple125/v4/7c/3f/67/7c3f67f6-16db-7433-9300-f7099010abb1/e2bb21eb-a10f-48ca-bf27-9ba64920f892_woodybattle2_iphoneX_2.png/460x996bb-60.jpg" alt="Woody Battle 2 screenshot 2">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple125/v4/d3/4e/59/d34e59c4-869a-6a85-de59-83aa34ddd185/86d1c949-b434-43e0-aad6-765a3cf36fe0_woodybattle2_iphoneX_3.png/460x996bb-60.jpg" alt="Woody Battle 2 screenshot 3">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple115/v4/02/29/4e/02294eea-07c3-ff9c-d92f-20c142891ca6/8c8df412-f0d5-4c6f-95d7-695fa51a7a8d_woodybattle2_iphoneX_5.png/460x996bb-60.jpg" alt="Woody Battle 2 screenshot 4">
+    </div>
+    <div class="project-info">
+      <div class="project-description">
+        Real-time multiplayer PVP puzzle game. Built networking with low-latency state sync, ELO-based matchmaking, anti-cheat validation, and delta compression for bandwidth optimization.
+        <div class="tech-tags">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">WebSocket</span>
+          <span class="tech-tag">Multiplayer Networking</span>
+          <span class="tech-tag">ELO Matchmaking</span>
+          <span class="tech-tag">Server Validation</span>
+        </div>
+        <a class="store-link" href="https://apps.apple.com/app/woody-battle-2-multiplayer-pvp/id1534846131" target="_blank">View on App Store &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Coco Slide -->
+  <div class="project-card">
+    <div class="project-header">
+      <img class="project-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/84/34/19/843419bb-1670-9e66-58b1-f49a9b192201/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/400x400ia-75.jpg" alt="Coco Slide icon">
+      <div class="project-title-area">
+        <h2>Coco Slide: Cats Puzzle</h2>
+        <div class="project-meta">
+          <span class="badge badge-role">Senior Developer</span>
+          <span class="badge badge-duration">1 year</span>
+          <span class="badge badge-company">Athena Studio</span>
+          <span class="badge badge-platform">iOS / Android</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-screenshots">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/29/7c/09/297c09d5-8505-5a21-c941-2ad1b2e47f0f/a95da082-ed72-46c0-b198-10489ac1f561_1242x2688_1.png/460x996bb-60.jpg" alt="Coco Slide screenshot 1">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/27/e3/35/27e335ea-b911-a979-616f-31f352997afe/d8434b16-939f-4c53-b48d-53dcbcd2a68b_1242x2688_6.png/460x996bb-60.jpg" alt="Coco Slide screenshot 2">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/1c/7e/0e/1c7e0e7a-4933-54b2-cc30-6adf221a1a45/f11b2e6f-0afd-46a4-8f1b-a41add9b9930_1242x2688_4.png/460x996bb-60.jpg" alt="Coco Slide screenshot 3">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/11/0b/97/110b9757-2c64-9f9a-f03c-ff85cafea9ea/a4bb12b7-e6e1-4538-aa0e-3dc1f5eb7f1e_1242x2688_5.png/460x996bb-60.jpg" alt="Coco Slide screenshot 4">
+    </div>
+    <div class="project-info">
+      <div class="project-description">
+        Endless sliding puzzle with cat-themed aesthetics, ~10 unique block types. Procedural difficulty scaling, smooth animations, and optimized rendering across all device tiers.
+        <div class="tech-tags">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">Procedural Gen</span>
+          <span class="tech-tag">Animation</span>
+          <span class="tech-tag">Performance Opt</span>
+          <span class="tech-tag">Ads SDK</span>
+        </div>
+        <a class="store-link" href="https://apps.apple.com/app/coco-slide-cats-puzzle/id1499950280" target="_blank">View on App Store &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Block Puzzle 100 -->
+  <div class="project-card">
+    <div class="project-header">
+      <img class="project-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/bf/ed/48/bfed48b4-bc9c-f09a-a802-18eb546d6c8c/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/400x400ia-75.jpg" alt="Block Puzzle 100 icon">
+      <div class="project-title-area">
+        <h2>Block Puzzle 100</h2>
+        <div class="project-meta">
+          <span class="badge badge-role">Senior Developer</span>
+          <span class="badge badge-duration">6 months</span>
+          <span class="badge badge-company">Athena / YOMI</span>
+          <span class="badge badge-platform">iOS / Android</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-screenshots">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource123/v4/44/49/65/4449655c-1260-94ed-3c56-ce770d22b167/7d27d0bf-440a-4084-a910-ae45f952a19e_4_iphoneXR.png/460x996bb-60.jpg" alt="Block Puzzle 100 screenshot 1">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource113/v4/d8/0a/49/d80a49ba-d421-2211-8f19-1336b576edad/21a31b94-63a3-4aab-99d8-aeb119270627_2_iphoneXR.png/460x996bb-60.jpg" alt="Block Puzzle 100 screenshot 2">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource123/v4/53/8c/88/538c8819-d315-6628-4971-bc87152296d8/8b5c7a09-ad04-46c8-b08c-9003018ea954_3_iphoneXR.png/460x996bb-60.jpg" alt="Block Puzzle 100 screenshot 3">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource113/v4/e3/e8/97/e3e8976b-833d-c0b8-70bd-cdebd2aaac35/85eb7bce-78d4-4786-a440-0883ebffaf2d_5_iphoneXR.png/460x996bb-60.jpg" alt="Block Puzzle 100 screenshot 4">
+    </div>
+    <div class="project-info">
+      <div class="project-description">
+        Classic block puzzle with 1M+ installs. Shipped new game modes, performance optimizations for legacy devices, A/B testing framework, and maintained stability across Unity upgrades.
+        <div class="tech-tags">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">A/B Testing</span>
+          <span class="tech-tag">IAP</span>
+          <span class="tech-tag">Ads Mediation</span>
+          <span class="tech-tag">Memory Opt</span>
+        </div>
+        <a class="store-link" href="https://apps.apple.com/app/block-puzzle-100/id972013240" target="_blank">View on App Store &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Haru Cats / Slide Puzzle -->
+  <div class="project-card">
+    <div class="project-header">
+      <img class="project-icon" src="https://play-lh.googleusercontent.com/HF8xhXlLqcIEf4eJOq2b2HRmbWQzlNraM-BH1HmfADbrfCF0XxmZVWTLylRhvTIzNaM=w240-h480-rw" alt="Slide Puzzle icon" style="border-radius:14px;">
+      <div class="project-title-area">
+        <h2>Haru Cats: Slide Puzzle</h2>
+        <div class="project-meta">
+          <span class="badge badge-role">Lead Developer</span>
+          <span class="badge badge-duration">6 months</span>
+          <span class="badge badge-company">YOMI Studio</span>
+          <span class="badge badge-platform">Android</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-screenshots">
+      <img class="landscape" src="https://play-lh.googleusercontent.com/KZ8gKCyQICV9X-EclSw98i_I_cKn4_DbHN_VyJYktX0F552J6bc-jqGJOgjdjnsoyMLd=w800-h450-rw" alt="Slide Puzzle screenshot 1">
+      <img class="landscape" src="https://play-lh.googleusercontent.com/PrprUnHWnggOlr4I5ZKU6AQAo4CZtGrl0oze4IMljQsMC_qm2xuw2YMvzHL1BXQq2L8=w800-h450-rw" alt="Slide Puzzle screenshot 2">
+      <img class="landscape" src="https://play-lh.googleusercontent.com/oGMHbOjG_oZ8-zmXalpzgUAb2fHr0NGaTQ94Ha5CyG8mXDDrmA20T592E1jrI3bArDg=w800-h450-rw" alt="Slide Puzzle screenshot 3">
+    </div>
+    <div class="project-info">
+      <div class="project-description">
+        Polished slide puzzle game — complete product lifecycle from concept to Google Play launch in 6 months. 1M+ downloads, 4.4 stars. Intuitive touch controls, balanced difficulty curve.
+        <div class="tech-tags">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">Google Play Services</span>
+          <span class="tech-tag">Ads SDK</span>
+          <span class="tech-tag">IAP</span>
+        </div>
+        <a class="store-link" href="https://play.google.com/store/apps/details?id=game.puzzle.slidepuzzle.extend" target="_blank">View on Google Play &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Heroes Infinity -->
+  <div class="project-card">
+    <div class="project-header">
+      <img class="project-icon" src="https://play-lh.googleusercontent.com/TVw0oaqQyvEOWNwJ6bM6GIIgDrYlSfqruXPd9zb8fHZE8v9jaUVj-roMNxT-yLF-Un-O=w240-h480-rw" alt="Heroes Infinity icon" style="border-radius:14px;">
+      <div class="project-title-area">
+        <h2>Heroes Infinity: Super Heroes</h2>
+        <div class="project-meta">
+          <span class="badge badge-role">Junior Developer</span>
+          <span class="badge badge-duration">2 years</span>
+          <span class="badge badge-company">DIVMOB</span>
+          <span class="badge badge-platform">Android</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-screenshots">
+      <img class="landscape" src="https://play-lh.googleusercontent.com/Ad-wHu5mhiNzacjohAuUjCSMQXrd5aTUvILXwGji7VAzLM17v6OmHtcaN74QzEKay5U=w800-h450-rw" alt="Heroes Infinity screenshot 1">
+      <img class="landscape" src="https://play-lh.googleusercontent.com/wC6oREqMhKO6mSSTXhY5bHPUYvlYsDoHpio9GMJH2oWArO5es4Lt5Huh9nCiWUseUZWy=w800-h450-rw" alt="Heroes Infinity screenshot 2">
+      <img class="landscape" src="https://play-lh.googleusercontent.com/CeomtDgXWxEzLWTf9JT5Np8wEzR1B4TwqCnzJdm5hVP5ep6aXhX7o0BdzmJEs9pjpQ=w800-h450-rw" alt="Heroes Infinity screenshot 3">
+    </div>
+    <div class="project-info">
+      <div class="project-description">
+        Large-scale RPG action game — 4.5 stars, 5M+ downloads. Co-developed with 2 senior devs. Built core gameplay systems, hero abilities, enemy AI, UI systems, and contributed to performance optimization.
+        <div class="tech-tags">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">RPG Systems</span>
+          <span class="tech-tag">AI Pathfinding</span>
+          <span class="tech-tag">UI Development</span>
+          <span class="tech-tag">Performance Opt</span>
+        </div>
+        <a class="store-link" href="https://play.google.com/store/apps/details?id=com.divmob.heroesinfinity" target="_blank">View on Google Play &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Le Hung — Game Development Portfolio &bull; phuochung.2807@gmail.com &bull; Ho Chi Minh City, Vietnam<br>
+  <span style="color:#444; font-size:10px; margin-top:4px; display:inline-block;">Open in browser for best experience. Print to PDF via Ctrl+P / Cmd+P.</span>
+</div>
+
+</body>
+</html>
